@@ -2,8 +2,6 @@
 /* TO DO
 Set up private variables for constructor COMPLEXPLANE
 Research tutorial functions for vertexarray stuff to use
-
-
 */
 
 
