@@ -7,13 +7,12 @@ Research tutorial functions for vertexarray stuff to use
 */
 
 
-
-
 // Include important C++ libraries here
 #include <SFML/Graphics.hpp>	//SFML header
 #include <iostream>		//input / output
 #include <complex>		//complex numbers
-using ComplexPlane.h
+#include 
+//using ComplexPlane.h
 
 // Make code easier to type with "using namespace"
 using namespace sf;  		//get rid of sf:: for sf functions
@@ -21,32 +20,32 @@ using namespace std;		//get rid of std:: for std functions
 
 // Class Declarations
 class ComplexPlane : public Drawable  	//Class name ComplexPlane;  using public class from SFML called Drawable. 
-					//Drawable allows access to sf::Shape, Sprite, Text, VertexArray, and VertexBuffer
-					//For more info:  https://www.sfml-dev.org/documentation/2.6.0/classsf_1_1Drawable.php
+										//Drawable allows access to sf::Shape, Sprite, Text, VertexArray, and VertexBuffer
+										//For more info:  https://www.sfml-dev.org/documentation/2.6.0/classsf_1_1Drawable.php
 // Implementing the UML 
 {
 public:
 	ComplexPlane(int pixelWidth, int pixelHeight);  //check
 	void draw(RenderTarget& target, RenderStates states) const override;  //check
-	void zoomIn();  //FIXME
-	void zoomOut();  //FIXME
-	void setCenter(Vector2i mousePixel);  //FIXME
-	void setMouseLocation(Vector2i mousePixel);
-	void loadText(Text& text);
+	//void zoomIn();  //FIXME
+	//void zoomOut();  //FIXME
+	//void setCenter(Vector2i mousePixel);  //FIXME
+	//void setMouseLocation(Vector2i mousePixel);
+	//void loadText(Text& text);
 	void updateRender(); //FIXME
 private:
 	VertexArray m_vArray;
-	State m_state;
+	//State m_state;  //FIXME
 	Vector2f m_mouseLocation;
 	Vector2i m_pixel_size;
 	Vector2f m_plane_center;
 	Vector2f m_plane_size;
-	int m_zoomCount;
-	float m_aspectRatio;
+	//int m_zoomCount;  //FIXME
+	//float m_aspectRatio;  //FIXME
 
-	int countIterations(Vector2f coord);
-	void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
-	Vector2f mapPixelToCoords(Vector2i mousePixel);
+	//int countIterations(Vector2f coord);  //FIXME
+	//void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b); //FIXME
+	//Vector2f mapPixelToCoords(Vector2i mousePixel); //FIXME
 };
 
 
@@ -78,8 +77,8 @@ void ComplexPlane::updateRender()
 		b = rand() % 256;
 		for (int j = 0; j < pixelWidth; j++)
 		{
-			m_va[i * pixelWidth + j].position = { (float)j, (float)i };
-			m_va[i * pixelWidth + j].color = { r,g,b };
+			m_vArray[i * pixelWidth + j].position = { (float)j, (float)i };
+			m_vArray[i * pixelWidth + j].color = { r,g,b };
 		}
 	}
 }
@@ -132,24 +131,37 @@ int main()
 		****************************************
 		*/
 		
-		//Option 1: pollevent 
+		// pollevent 
 		Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)  //if event is closed, then execute close command.
 			{ window.close(); }
 			
-			if (event.type == sf::Event::MouseButtonPressed)  //mouse inputs
+			//Option 1: Mouse presses
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)  //Left mouse click will ZOOM IN
 				{
-					std::cout << "the left button was pressed" << std::endl;  //Show commands and location to terminal
+					std::cout << "the left mouse button was pressed" << std::endl;  //Show commands and location to terminal
 					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
 					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
 
-					plane.zoomIn();  //FIXME
-					plane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
+					//plane.zoomIn();  //FIXME
+					//plane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
 					
+					update = true;
+				}
+
+				if (event.mouseButton.button == sf::Mouse::Right)  //Right mouse click will ZOOM OUT
+				{
+					std::cout << "the right mouse button was pressed" << std::endl;  //Show commands and location to terminal
+					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+
+					//plane.zoomIn();  //FIXME
+					//plane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
+
 					update = true;
 				}
 			}
@@ -162,10 +174,7 @@ int main()
 			{
 				window.close();
 			}
-		
 
-			
-	
 	
 		/*
 		****************************************
@@ -173,6 +182,7 @@ int main()
   		What will change after an input?
 		****************************************
 		*/
+
 		if (update)
 		{
 			plane.updateRender(); //FIXME
@@ -186,6 +196,9 @@ int main()
 		****************************************
 		*/
 
+		window.clear();
+		window.draw(plane);
+		window.display();
 
 
 	} //Window.isOpen END
