@@ -133,6 +133,7 @@ int main()
 
 		window.clear();
 		window.draw(plane);
+		window.draw(text); 
 		window.display();
 
 
