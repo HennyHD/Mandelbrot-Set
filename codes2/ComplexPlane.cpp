@@ -1,22 +1,22 @@
 #include "ComplexPlane.h"
-#include "main.cpp"
 
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
 	m_pixel_size = { pixelWidth, pixelHeight };
 	m_vArray.setPrimitiveType(Points);
 	m_vArray.resize(pixelWidth * pixelHeight);
-	m_aspectRatio = (1080, 1920);
+	m_aspectRatio = (float)pixelHeight / (float)pixelWidth;
 	m_plane_center = { 0,0 };
 	m_plane_size = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };
+	cout << m_plane_size.x << " " << m_plane_size.y << endl;
 	m_zoomCount = 0;
 	m_State = State::CALCULATING;
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
-	float real = ((mousePixel.x - 0) / (1920.0 - 0)) * (2.0 - -2.0) + (-2.0);
-	float imaginary = ((mousePixel.y - 1080) / (0.0 - 1080.0)) * (2.0 - -2.0) + (-2.0);
+	float real = ((mousePixel.x - 0) / (float)(m_pixel_size. x)) * (m_plane_size.x) + (-2.0);
+	float imaginary = ((mousePixel.y) / (float)(m_pixel_size.y)) * (m_plane_size.y) + (-2.0);
 	return Vector2f(real, imaginary);
 }
 
@@ -64,7 +64,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 
 }
 
-size_t countIterations(Vector2f coord) //FIXME
+size_t ComplexPlane::countIterations(Vector2f coord) //FIXME
 {
 	complex<float> z(0, 0);
 	complex<float> c(coord.x, coord.y);
