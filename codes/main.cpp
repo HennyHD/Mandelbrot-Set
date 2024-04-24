@@ -125,14 +125,14 @@ int main()
 		****************************************
 		*/
 
-		if (update)
+		if (update)  //if anything causes a change
 		{
 			plane.updateRender();
 			plane.loadText(text);
 			update = false;
 		}
 		
-		plane.loadText(text);
+		plane.loadText(text);  //outside loop to display in real time.
 	
 		/*
 		****************************************
