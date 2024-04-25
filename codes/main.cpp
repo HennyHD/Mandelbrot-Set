@@ -13,6 +13,8 @@ Research tutorial functions for vertexarray stuff to use
 #include <complex>		//complex numbers
 #include <vector>
 #include "ComplexPlane.h"
+//#include <thread>
+//#include <mutex>
 
 // Make code easier to type with "using namespace"
 using namespace sf;  		//get rid of sf:: for sf functions
@@ -53,7 +55,10 @@ int main()
 	text.setCharacterSize(50);				//char size
 	text.setColor(Color::White);
 	
-	bool update = true;
+	bool update = true; //update bool for events
+
+	//Thread thread(&ComplexPlane::countIterations);
+	//thread.launch(); 
 	
 	// EXE LOOP
 	while (window.isOpen())
@@ -78,9 +83,9 @@ int main()
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)  //Left mouse click will ZOOM IN
 				{
-					std::cout << "the left mouse button was pressed" << std::endl;  //Show commands and location to terminal
-					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+					cout << "the left mouse button was pressed" << std::endl;  //Show commands and location to terminal
+					cout << "mouse x: " << event.mouseButton.x << std::endl;
+					cout << "mouse y: " << event.mouseButton.y << std::endl;
 
 					plane.zoomIn();
 					plane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));//fixme
@@ -90,9 +95,9 @@ int main()
 
 				if (event.mouseButton.button == sf::Mouse::Right)  //Right mouse click will ZOOM OUT
 				{
-					std::cout << "the right mouse button was pressed" << std::endl;  //Show commands and location to terminal
-					std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-					std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+					cout << "the right mouse button was pressed" << std::endl;  //Show commands and location to terminal
+					cout << "mouse x: " << event.mouseButton.x << std::endl;
+					cout << "mouse y: " << event.mouseButton.y << std::endl;
 
 					plane.zoomOut();
 					plane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
@@ -125,14 +130,14 @@ int main()
 		****************************************
 		*/
 
-		if (update)  //if anything causes a change
+		if (update)
 		{
 			plane.updateRender();
 			plane.loadText(text);
 			update = false;
 		}
 		
-		plane.loadText(text);  //outside loop to display in real time.
+		plane.loadText(text);
 	
 		/*
 		****************************************

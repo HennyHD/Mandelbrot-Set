@@ -29,7 +29,9 @@ public:
 	void setCenter(Vector2i mousePixel);  
 	void setMouseLocation(Vector2i mousePixel);
 	void loadText(Text& text);
-	void updateRender(); //FIXME
+	void updateRender(); 
+	// ComplexPlane() : countIterations(Vector2f coord);
+
 private:
 	VertexArray m_vArray;
 	State m_State;  
@@ -40,7 +42,7 @@ private:
 	int m_zoomCount;  
 	float m_aspectRatio;  
 
-	size_t countIterations(Vector2f coord);  //FIXME
-	void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b); //FIXME
-	Vector2f mapPixelToCoords(Vector2i mousePixel); //FIXME
+	size_t countIterations(Vector2f coord);  
+	void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b); 
+	Vector2f mapPixelToCoords(Vector2i mousePixel); 
 };
